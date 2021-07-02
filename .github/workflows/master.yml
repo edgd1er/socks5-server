@@ -2,9 +2,15 @@ name: "Latest tag from master branch"
 
 on:
   pull_request:
-    branches: master
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
   push:
-    branches: master
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
 
 env:
   IMAGE: go-socks5-proxy
