@@ -60,7 +60,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: ${{ env.PLATFORMS }}
-          push: false
+          push: true
           build-args: |
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
           tags: ${{ secrets.DOCKER_USER }}/${{ env.IMAGE }}:${{ env.TAG }}
