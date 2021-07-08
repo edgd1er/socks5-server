@@ -4,11 +4,13 @@ services:
     image: edgd1er/go-socks5-proxy
     restart: unless-stopped
     environment:
-      #Set proxy user (also required existed PROXY_PASS)
+      # TimeZone
+      "TZ": America/Chicago
+      # Set proxy user (also required existed PROXY_PASS)
       "PROXY_USER": ""
-      #Set proxy password for auth, used with PROXY_USER
+      # Set proxy password for auth, used with PROXY_USER
       "PROXY_PASSWORD": ""
-      #Set listen port for application inside docker container
+      # Set listen port for application inside docker container
       "PROXY_PORT": 1080
     ports:
       - "1080:1080"
