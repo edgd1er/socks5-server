@@ -4,6 +4,6 @@ github.com/armon/go-socks5
 # github.com/caarlos0/env v3.3.1-0.20180521112546-3e0f30cbf50b+incompatible
 ## explicit
 github.com/caarlos0/env
-# golang.org/x/net v0.0.0-20180406214816-61147c48b25b
+# golang.org/x/net  v0.0.0-20210805182204-aaa1db679c0d
 ## explicit
 golang.org/x/net/context
