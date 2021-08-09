@@ -1,14 +1,20 @@
 # go-socks5-proxy
 
+![Latest build from master branch](https://github.com/edgd1er/socks5-server/workflows/Latest%20tag%20from%20master%20branch/badge.svg)
+
+![Release tag](https://github.com/edgd1er/socks5-server/workflows/Release%20tag/badge.svg)
+
+![Docker Size](https://badgen.net/docker/size/edgd1er/socks5-server?icon=docker&label=Size)
+![Docker Pulls](https://badgen.net/docker/pulls/edgd1er/socks5-server?icon=docker&label=Pulls)
+![Docker Stars](https://badgen.net/docker/stars/edgd1er/socks5-server?icon=docker&label=Stars)
+![ImageLayers](https://badgen.net/docker/layers/edgd1er/socks5-server?icon=docker&label=Layers)
+
 Forked from [serjs/socks5-server](https://github.com/serjs/socks5-server/)
 
 Minor changes:
 * check for gh actions deps changes
 * scan for vuln
 
-![Latest tag from master branch](https://github.com/edgd1er/socks5-server/workflows/Latest%20tag%20from%20master%20branch/badge.svg)
-
-![Release tag](https://github.com/edgd1er/socks5-server/workflows/Release%20tag/badge.svg)
 
 Simple socks5 server using go-socks5 with authentication options
 
