@@ -9,6 +9,7 @@ SOCK_PORT=1080
 FAILED=0
 INTERVAL=4
 DKRFILE=Dockerfile
+DCYML="docker compose -f docker-compose.build.yml"
 
 #fonctions
 enableMultiArch() {
@@ -20,21 +21,21 @@ enableMultiArch() {
 
 buildAndWait() {
   echo "Stopping and removing running containers"
-  docker compose down -v
+  ${DCYML} down -v
   echo "Building and starting image"
-  docker compose -f docker-compose.yml up -d --build
+  ${DCYML} up -d --build
   echo "Waiting for the container to be up.(every ${INTERVAL} sec)"
   logs=""
   n=0
   #  while [ 0 -eq $(echo $logs | grep -c "Initialization Sequence Completed") ]; do
   while [ 0 -eq $(echo $logs | grep -c "Start listening proxy") ]; do
-    logs="$(docker compose logs)"
+    logs="$(${DCYML} logs)"
     sleep ${INTERVAL}
     ((n+=1))
-    echo "loop: ${n}: $(docker compose logs | tail -1)"
+    echo "loop: ${n}: $(${DCYML} logs | tail -1)"
     [[ ${n} -eq 15 ]] && break || true
   done
-  docker compose logs
+  ${DCYML} logs
 }
 
 areProxiesPortOpened() {
@@ -57,7 +58,7 @@ testProxies() {
   fi
 
   #check detected ips
-  vpnIP=$(curl -m5 -sx socks5://${PROXY_HOST}:${SOCK_PORT} "https://ifconfig.me/ip")
+  vpnIP=$(curl -m15 -x socks5://${PROXY_HOST}:${SOCK_PORT} "https://ifconfig.me/ip")
   if [[ $? -eq 0 ]] && [[ ${myIp} == "${vpnIP}" ]] && [[ ${#vpnIP} -gt 0 ]]; then
     echo "socks proxy: IP is ${vpnIP}, mine is ${myIp}"
   else
@@ -82,4 +83,4 @@ buildAndWait
 
 testProxies
 
-docker compose down -v
+${DCYML} down -v

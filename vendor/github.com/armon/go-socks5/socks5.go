@@ -55,6 +55,7 @@ type Config struct {
 type Server struct {
 	config      *Config
 	authMethods map[uint8]Authenticator
+	isIPAllowed func(net.IP) bool
 }
 
 // New creates a new Server and potentially returns an error
@@ -93,7 +94,24 @@ func New(conf *Config) (*Server, error) {
 		server.authMethods[a.GetCode()] = a
 	}
 
+	// Set default IP whitelist function
+	server.isIPAllowed = func(ip net.IP) bool {
+		return true // default allow all IPs
+	}
+
 	return server, nil
+}
+
+// SetIPWhitelist sets the function to check if a given IP is allowed
+func (s *Server) SetIPWhitelist(allowedIPs []net.IP) {
+	s.isIPAllowed = func(ip net.IP) bool {
+		for _, allowedIP := range allowedIPs {
+			if ip.Equal(allowedIP) {
+				return true
+			}
+		}
+		return false
+	}
 }
 
 // ListenAndServe is used to create a listener and serve on it

@@ -9,3 +9,20 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+      day: saturday
+      time: "10:00"
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: saturday
+      time: "10:00"
+    target-branch: master
+  - package-ecosystem: "docker"
+    directory: "/src/"
+    schedule:
+      interval: "weekly"
+      day: saturday
+      time: "10:00"
+    target-branch: master
