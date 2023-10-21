@@ -7,5 +7,11 @@ COPY . .
 RUN echo "Building with go version ${GOLANG_VERSION}" && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-s' -o ./socks5
 
 FROM gcr.io/distroless/static:nonroot
+
+ENV TZ="America/Chicago"
+ENV PROXY_USER=""
+ENV PROXY_PASSWORD=""
+ENV PROXY_PORT=1080
+
 COPY --from=builder /go/src/github.com/serjs/socks5/socks5 /
 ENTRYPOINT ["/socks5"]

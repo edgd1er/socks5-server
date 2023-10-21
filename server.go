@@ -6,15 +6,15 @@ import (
 	"os"
 
 	"github.com/armon/go-socks5"
-	"github.com/caarlos0/env/v6"
+	"github.com/caarlos0/env/v9"
 )
 
 type params struct {
-	User            string    `env:"PROXY_USER" envDefault:""`
-	Password        string    `env:"PROXY_PASSWORD" envDefault:""`
-	Port            string    `env:"PROXY_PORT" envDefault:"1080"`
-	AllowedDestFqdn string    `env:"ALLOWED_DEST_FQDN" envDefault:""`
-	AllowedIPs      []string  `env:"ALLOWED_IPS" envSeparator:"," envDefault:""`
+	User            string   `env:"PROXY_USER" envDefault:""`
+	Password        string   `env:"PROXY_PASSWORD" envDefault:""`
+	Port            string   `env:"PROXY_PORT" envDefault:"1080"`
+	AllowedDestFqdn string   `env:"ALLOWED_DEST_FQDN" envDefault:""`
+	AllowedIPs      []string `env:"ALLOWED_IPS" envSeparator:"," envDefault:""`
 }
 
 func main() {
