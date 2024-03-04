@@ -102,6 +102,18 @@ func New(conf *Config) (*Server, error) {
 	return server, nil
 }
 
+// SetIPWhitelist sets the function to check if a given IP is allowed
+func (s *Server) SetIPWhitelist(allowedIPs []net.IP) {
+	s.isIPAllowed = func(ip net.IP) bool {
+		for _, allowedIP := range allowedIPs {
+			if ip.Equal(allowedIP) {
+				return true
+			}
+		}
+		return false
+	}
+}
+
 // ListenAndServe is used to create a listener and serve on it
 func (s *Server) ListenAndServe(network, addr string) error {
 	l, err := net.Listen(network, addr)

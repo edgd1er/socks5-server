@@ -1,0 +1,5 @@
+*.yaml
+*.yml
+*.sh
+*.md
+.github/*

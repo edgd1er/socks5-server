@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 	"github.com/armon/go-socks5"
-	"github.com/caarlos0/env/v6"
+	"github.com/caarlos0/env/v9"
 )
 
 type params struct {

@@ -4,8 +4,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        GOLANG_VERSION: 1.19.1
     container_name: socks5-build
-    env_file: .env
     ports:
       - "1080:1080"
-    restart: unless-stopped
+    dns:
+      - 80.67.169.12
+      - 2001:910:800::12
