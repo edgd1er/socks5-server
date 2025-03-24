@@ -3,12 +3,12 @@ name: "Latest tag from master branch"
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - '.github/**'
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - '.github/**'
   workflow_dispatch:
@@ -16,7 +16,7 @@ on:
 env:
   IMAGE: go-socks5-proxy
   TAG: latest
-  GOLANG_VERSION: "1.19.1"
+  GOLANG_VERSION: "1.24"
   PLATFORMS: "linux/amd64,linux/arm/v7,linux/arm64"
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: .

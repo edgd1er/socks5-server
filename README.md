@@ -1,20 +1,10 @@
 # go-socks5-proxy
 
-![Latest build from master branch](https://github.com/edgd1er/socks5-server/workflows/Latest%20tag%20from%20master%20branch/badge.svg)
+![Latest tag from master branch](https://github.com/edgd1er/socks5-server/workflows/Latest%20tag%20from%20master%20branch/badge.svg)
 
-![Release tag](https://github.com/edgd1er/socks5-server/workflows/Release%20tag/badge.svg)
+Based on branch merge_requests of https://github.com/bobpaul/go-socks5-server.git
 
-![Docker Size](https://badgen.net/docker/size/edgd1er/socks5-server?icon=docker&label=Size)
-![Docker Pulls](https://badgen.net/docker/pulls/edgd1er/socks5-server?icon=docker&label=Pulls)
-![Docker Stars](https://badgen.net/docker/stars/edgd1er/socks5-server?icon=docker&label=Stars)
-![ImageLayers](https://badgen.net/docker/layers/edgd1er/socks5-server?icon=docker&label=Layers)
-
-Forked from [serjs/socks5-server](https://github.com/serjs/socks5-server/)
-
-Minor changes:
-* check for gh actions deps changes
-* scan for vuln
-
+Add DIAL_TIMEOUT, PROXY_CREDENTIALS
 
 Simple socks5 server using go-socks5 with authentication, allowed ips list and destination FQDNs filtering
 
@@ -22,11 +12,17 @@ Simple socks5 server using go-socks5 with authentication, allowed ips list and d
 
 - Run docker container using default container port 1080 and expose it to world using host port 1080, with auth creds
 
-    ```docker run -d --name socks5 -p 1080:1080 -e PROXY_USER=<PROXY_USER> -e PROXY_PASSWORD=<PROXY_PASSWORD>  serjs/go-socks5-proxy```
+  `docker run -d --name socks5 -p 1080:1080 -e PROXY_USER=<PROXY_USER> -e PROXY_PASSWORD=<PROXY_PASSWORD>  serjs/go-socks5-proxy`
 
 - Run docker container using specific container port and expose it to host port 1090
 
     ```docker run -d --name socks5 -p 1090:9090 -e PROXY_USER=<PROXY_USER> -e PROXY_PASSWORD=<PROXY_PASSWORD> -e PROXY_PORT=9090 serjs/go-socks5-proxy```
+
+  `docker run -d --name socks5 -p 1090:9090 -e PROXY_PORT=9090 serjs/go-socks5-proxy`
+
+- Run docker container using default container port 1080 and expose it to world using host port 1080, with PROXY_CREDENTIALS multi-user authentication
+
+  `docker run -d --name socks5 -p 1080:1080 -e PROXY_CREDENTIALS='[{"username":"TEST_USERNAME","password":"password123"}]' serjs/go-socks5-proxy`
 
 # List of supported config parameters
 
@@ -66,6 +62,7 @@ or
 
 # Authors
 
-* **Sergey Bogayrets**
+- **Sergey Bogayrets**
 
 See also the list of [contributors](https://github.com/serjs/socks5-server/graphs/contributors) who participated in this project.
+

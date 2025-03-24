@@ -5,18 +5,21 @@ on:
   workflow_dispatch:
     inputs:
       dry:
+        description: do not delete if true
         required: true
         type: choice
         default: false
         options:
-          - true
-          - false
+          - "True"
+          - "False"
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches:
+      - main
       - master
   pull_request:
     branches:
+      - main
       - master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
