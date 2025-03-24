@@ -1,0 +1,31 @@
+services:
+  socks5:
+    image: edgd1er/go-socks5-proxy
+    build:
+      #context: https://github.com/bobpaul/go-socks5-server.git#merge_requestsd
+      context: .
+      args:
+        - GOLANG_VERSION=1.24
+      x-bake:
+        platforms :
+          - linux/amd64
+          - linux/arm64
+          - linux/arm/v7
+          - linux/arm/v6
+    restart: unless-stopped
+    labels :
+      com.centurylinklabs.watchtower.enable : "true"
+    environment:
+      # TimeZone
+      TZ: "Europe/Paris"
+      # Set proxy user (also required existed PROXY_PASS)
+      PROXY_USER: "username"
+      # Set proxy password for auth, used with PROXY_USER
+      PROXY_PASSWORD: "password"
+      # Set listen port for application inside docker container
+      PROXY_PORT: 1080
+    ports:
+      - "1080:1080"
+    dns:
+      - 185.222.222.222
+      - 80.67.169.40
