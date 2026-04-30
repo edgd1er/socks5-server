@@ -4,6 +4,7 @@ services:
     build:
       #context: https://github.com/bobpaul/go-socks5-server.git#merge_requestsd
       context: .
+      dockerfile: Dockerfile
       args:
         - GOLANG_VERSION=1.25
       x-bake:
