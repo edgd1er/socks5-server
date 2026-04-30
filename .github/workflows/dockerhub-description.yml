@@ -1,0 +1,25 @@
+name: Update Docker Hub Description
+permissions:
+  contents: read
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - .github/workflows/dockerhub-description.yml
+  workflow_dispatch:
+
+jobs:
+  dockerHubDescription:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Docker Hub Description
+      uses: peter-evans/dockerhub-description@v5
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: edgd1er/go-socks5-proxy
+        short-description: ${{ github.event.repository.description }}
