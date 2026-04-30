@@ -9,7 +9,10 @@ SOCK_PORT=1080
 FAILED=0
 INTERVAL=4
 DKRFILE=Dockerfile
-DCYML="docker compose -f docker-compose.build.yml"
+CPSE=compose.yml
+DCYML="docker compose -f ${CPSE}"
+PROXY_USER=$(grep -oP "(?<=PROXY_USER: \")[^\"]+" ${CPSE})
+PROXY_PASSWORD=$(grep -oP "(?<=PROXY_PASSWORD: \")[^\"]+" ${CPSE})
 
 #fonctions
 enableMultiArch() {
@@ -57,8 +60,10 @@ testProxies() {
     areProxiesPortOpened
   fi
 
+  CREDS="${PROXY_USER}:${PROXY_PASSWORD}@"
+  [[ $CREDS == "@" ]] && CREDS="" || true
   #check detected ips
-  vpnIP=$(curl -m15 -x socks5://${PROXY_HOST}:${SOCK_PORT} "https://ifconfig.me/ip")
+  vpnIP=$(curl -v4 -m15  -x socks5h://${CREDS}${PROXY_HOST}:${SOCK_PORT} "https://ifconfig.me/ip")
   if [[ $? -eq 0 ]] && [[ ${myIp} == "${vpnIP}" ]] && [[ ${#vpnIP} -gt 0 ]]; then
     echo "socks proxy: IP is ${vpnIP}, mine is ${myIp}"
   else
@@ -75,9 +80,9 @@ testProxies() {
 [[ "$HOSTNAME" != phoebe ]] && aptCacher=""
 [[ ! -f ${DKRFILE} ]] && echo -e "\nError, Dockerfile is not found\n" && exit 1
 
-docker run --rm -i hadolint/hadolint hadolint "$@" - < Dockerfile
+docker run --rm -i hadolint/hadolint hadolint "$@" - < Dockerfile || true
 
-myIp=$(curl -m5 -sq https://ifconfig.me/ip)
+myIp=$(curl -4 -m5 -sq https://ifconfig.me/ip)
 buildAndWait
 testProxies
 
