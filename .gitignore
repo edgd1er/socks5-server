@@ -1,3 +1,6 @@
-/.idea/
-/docker-compose.yml
-/gen_image_buildx.sh
+
+.idea/
+
+*.iml
+
+sock5server
