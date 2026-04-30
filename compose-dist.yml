@@ -1,5 +1,4 @@
-version: '3'
-services:
+ services:
   socks5:
     image: edgd1er/go-socks5-proxy
     restart: unless-stopped
