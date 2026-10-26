@@ -1,7 +1,9 @@
-ARG GOLANG_VERSION="1.25"
+ARG GOLANG_VERSION="1.26"
 
-#hadolint ignore=DL3018,DL3008
+#hadolint global ignore=DL3018,DL3008
 FROM golang:$GOLANG_VERSION-alpine AS builder
+
+
 RUN apk --no-cache add tzdata
 WORKDIR /go/src/github.com/serjs/socks5
 COPY . .
