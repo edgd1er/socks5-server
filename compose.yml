@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - GOLANG_VERSION=1.25
+        - GOLANG_VERSION=1.26
       x-bake:
         platforms :
           - linux/amd64
@@ -25,6 +25,10 @@ services:
       PROXY_PASSWORD: "password"
       # Set listen port for application inside docker container
       PROXY_PORT: 1080
+      # Allowed destination address regular expression pattern. Default allows all.
+      ALLOWED_DEST_FQDN: ""
+      # Set allowed IP's that can connect to proxy, separator ,
+      ALLOWED_IPS: ""
     ports:
       - "1080:1080"
     dns:
